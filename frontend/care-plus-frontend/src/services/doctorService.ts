@@ -9,7 +9,7 @@ export const doctorService = {
     return response.data;
   },
 
-  async getAvailableSlots(doctorId: number, date: Date) {
+  async getAvailableSlots(doctorId: string, date: Date) {
     try {
       const formattedDate = format(date, 'yyyy-MM-dd');
       console.log('Requesting slots with params:', { doctorId, date: formattedDate });

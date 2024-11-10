@@ -1,3 +1,4 @@
+// src/routes/doctor.routes.ts
 import { Router } from 'express';
 import { DoctorController } from '../controllers/doctorController';
 

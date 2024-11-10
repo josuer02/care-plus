@@ -1,3 +1,4 @@
+// src/repositories/patientRepository.ts
 import prisma from '../config/database';
 import { Patient, Prisma } from '.prisma/client';
 
@@ -13,12 +14,19 @@ export class PatientRepository {
           }
         });
       }
-  async create(data: Prisma.PatientCreateInput): Promise<Patient> {
-    return prisma.patient.create({
-      data
-    });
-  }
-
+      async create(data: Prisma.PatientCreateInput): Promise<Patient> {
+        try {
+            return await prisma.patient.create({
+                data: {
+                    ...data,
+                    dateOfBirth: new Date(data.dateOfBirth) // Asegurarse que la fecha es válida
+                }
+            });
+        } catch (error) {
+            console.error('Repository error:', error);
+            throw error;
+        }
+    }
   async findByPhone(phone: string): Promise<Patient | null> {
     return prisma.patient.findUnique({
       where: { phone },
@@ -32,14 +40,14 @@ export class PatientRepository {
     });
   }
 
-  async update(id: number, data: Prisma.PatientUpdateInput): Promise<Patient> {
+  async update(id: string, data: Prisma.PatientUpdateInput): Promise<Patient> {
     return prisma.patient.update({
       where: { id },
       data
     });
   }
 
-  async findById(id: number): Promise<Patient | null> {
+  async findById(id: string): Promise<Patient | null> {
     return prisma.patient.findUnique({
       where: { id },
       include: {

@@ -1,3 +1,4 @@
+// src/repositories/appointmentRepository.ts
 import prisma from '../config/database';
 import { Appointment, Prisma } from '.prisma/client';
 
@@ -12,7 +13,7 @@ export class AppointmentRepository {
     });
   }
 
-  async findById(id: number): Promise<Appointment | null> {
+  async findById(id: string): Promise<Appointment | null> {
     return prisma.appointment.findUnique({
       where: { id },
       include: {
@@ -22,7 +23,7 @@ export class AppointmentRepository {
     });
   }
 
-  async checkDoctorAvailability(doctorId: number, datetime: Date): Promise<boolean> {
+  async checkDoctorAvailability(doctorId: string, datetime: Date): Promise<boolean> {
     const startTime = new Date(datetime);
     const endTime = new Date(datetime);
     endTime.setHours(endTime.getHours() + 1);
@@ -67,7 +68,7 @@ export class AppointmentRepository {
     });
   }
 
-  async update(id: number, data: Prisma.AppointmentUpdateInput): Promise<Appointment> {
+  async update(id: string, data: Prisma.AppointmentUpdateInput): Promise<Appointment> {
     return prisma.appointment.update({
       where: { id },
       data,
@@ -78,13 +79,13 @@ export class AppointmentRepository {
     });
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await prisma.appointment.delete({
       where: { id }
     });
   }
 
-  async findByPatientId(patientId: number): Promise<Appointment[]> {
+  async findByPatientId(patientId: string): Promise<Appointment[]> {
     return prisma.appointment.findMany({
       where: { patientId },
       include: {

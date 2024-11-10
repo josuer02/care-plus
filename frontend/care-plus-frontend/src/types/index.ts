@@ -6,11 +6,11 @@ export type AppointmentFormData = {
     email: string;
     phone: string;
     dateOfBirth: Date;
-    doctorId: number;
+    doctorId: string;
     datetime: Date;
   };
 export interface Patient {
-    id: number;
+    _id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -22,7 +22,7 @@ export interface Patient {
   }
   
   export interface Doctor {
-    id: number;
+    _id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -32,10 +32,10 @@ export interface Patient {
   }
   
   export interface Appointment {
-    id: number;
+    _id: string;
     datetime: Date;
-    patientId: number;
-    doctorId: number;
+    patientId: string;
+    doctorId: string;
     status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
     patient?: Patient;
     doctor?: Doctor;

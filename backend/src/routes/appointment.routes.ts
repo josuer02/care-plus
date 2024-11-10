@@ -1,3 +1,4 @@
+// src/routes/appointment.routes.ts
 import { Router, Request, Response, RequestHandler } from 'express';
 import { AppointmentController } from '../controllers/appointmentController';
 

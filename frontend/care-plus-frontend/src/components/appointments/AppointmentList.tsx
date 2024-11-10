@@ -45,7 +45,7 @@ import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 interface Patient {
-  id: number;
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -54,17 +54,17 @@ interface Patient {
 }
 
 interface Doctor {
-  id: number;
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
 }
 
 interface Appointment {
-  id: number;
+  _id: string;
   datetime: Date;
-  patientId: number;
-  doctorId: number;
+  patientId: string;
+  doctorId: string;
   status: "SCHEDULED" | "COMPLETED" | "CANCELLED";
   patient: Patient;
   doctor: Doctor;
@@ -122,7 +122,7 @@ export default function AppointmentList() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedDoctor, setSelectedDoctor] = useState<number | null>(null);
+  const [selectedDoctor, setSelectedDoctor] = useState<string | null>(null);
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null);
   const [isRescheduling, setIsRescheduling] = useState(false);
@@ -185,13 +185,13 @@ export default function AppointmentList() {
   ) => {
     try {
       const updatedAppointment = await appointmentService.reschedule(
-        appointment.id,
+        appointment._id,
         newDateTime
       );
 
       setAppointments((prev) =>
         prev.map((apt) =>
-          apt.id === appointment.id
+          apt._id === appointment._id
             ? {
                 ...apt,
                 datetime: newDateTime,
@@ -217,10 +217,12 @@ export default function AppointmentList() {
     }
   };
 
-  const handleCancel = async (appointmentId: number) => {
+  const handleCancel = async (appointmentId: string) => {
     try {
       await appointmentService.cancel(appointmentId);
-      setAppointments((prev) => prev.filter((apt) => apt.id !== appointmentId));
+      setAppointments((prev) =>
+        prev.filter((apt) => apt._id !== appointmentId)
+      );
       setSelectedAppointment(null);
 
       toast({
@@ -310,7 +312,7 @@ export default function AppointmentList() {
                 Reschedule
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => handleCancel(appointment.id)}
+                onClick={() => handleCancel(appointment._id)}
                 className="text-red-600"
               >
                 <X className="w-4 h-4 mr-2" />
@@ -397,7 +399,7 @@ export default function AppointmentList() {
           </Button>
           <Button
             variant="destructive"
-            onClick={() => handleCancel(appointment.id)}
+            onClick={() => handleCancel(appointment._id)}
           >
             <X className="w-4 h-4 mr-2" />
             Cancel
@@ -549,7 +551,7 @@ export default function AppointmentList() {
           <Select
             value={selectedDoctor?.toString() ?? "all"} // Change empty string to "all"
             onValueChange={(value) =>
-              setSelectedDoctor(value === "all" ? null : parseInt(value))
+              setSelectedDoctor(value === "all" ? null : value)
             }
           >
             <SelectTrigger className="w-[200px]">
@@ -559,7 +561,7 @@ export default function AppointmentList() {
               <SelectItem value="all">All Doctors</SelectItem>{" "}
               {/* Change empty string to "all" */}
               {doctors.map((doctor) => (
-                <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                <SelectItem key={doctor._id} value={doctor._id.toString()}>
                   Dr. {doctor.firstName} {doctor.lastName}
                 </SelectItem>
               ))}
@@ -620,7 +622,7 @@ export default function AppointmentList() {
                     )
                     .map((appointment) => (
                       <AppointmentCard
-                        key={appointment.id}
+                        key={appointment._id}
                         appointment={appointment}
                       />
                     ))}
@@ -641,7 +643,7 @@ export default function AppointmentList() {
                 <div className="space-y-4">
                   {appointments.map((appointment) => (
                     <AppointmentCard
-                      key={appointment.id}
+                      key={appointment._id}
                       appointment={appointment}
                     />
                   ))}

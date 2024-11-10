@@ -1,5 +1,6 @@
+// src/repositories/doctorRepository.ts
 import prisma from '../config/database';
-import { Doctor, Prisma, Appointment } from '.prisma/client';
+import { Doctor, Prisma, Appointment } from '@prisma/client';
 
 export class DoctorRepository {
   async create(data: Prisma.DoctorCreateInput): Promise<Doctor> {
@@ -16,7 +17,7 @@ export class DoctorRepository {
     });
   }
 
-  async findById(id: number): Promise<Doctor | null> {
+  async findById(id: string): Promise<Doctor | null> {
     return prisma.doctor.findUnique({
       where: { id },
       include: {
@@ -29,7 +30,7 @@ export class DoctorRepository {
     });
   }
 
-  async getAvailableTimeSlots(doctorId: number, date: Date): Promise<Date[]> {
+  async getAvailableTimeSlots(doctorId: string, date: Date): Promise<Date[]> {
     // Create date for the requested day
     const requestedDate = new Date(date);
     requestedDate.setUTCHours(0, 0, 0, 0);
@@ -72,7 +73,7 @@ export class DoctorRepository {
     return availableSlots;
 }
 
-  async update(id: number, data: Prisma.DoctorUpdateInput): Promise<Doctor> {
+  async update(id: string, data: Prisma.DoctorUpdateInput): Promise<Doctor> {
     return prisma.doctor.update({
       where: { id },
       data

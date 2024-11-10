@@ -1,3 +1,4 @@
+// src/controllers/doctorController.ts
 import { Request, Response } from 'express';
 import { DoctorRepository } from '../repositories/doctorRepository';
 
@@ -49,7 +50,7 @@ export class DoctorController {
     async getById(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const doctor = await this.doctorRepo.findById(Number(id));
+            const doctor = await this.doctorRepo.findById(id);
             
             if (!doctor) {
                 return res.status(404).json({ error: 'Doctor not found' });
@@ -72,14 +73,14 @@ export class DoctorController {
             }
     
             // First check if doctor exists
-            const doctor = await this.doctorRepo.findById(Number(doctorId));
+            const doctor = await this.doctorRepo.findById((doctorId as string));
             if (!doctor) {
                 return res.status(404).json({ error: 'Doctor not found' });
             }
     
             const requestDate = new Date(date as string);
             const availableSlots = await this.doctorRepo.getAvailableTimeSlots(
-                Number(doctorId),
+                doctorId as string,
                 requestDate
             );
     

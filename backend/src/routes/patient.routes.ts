@@ -1,3 +1,4 @@
+// src/routes/patient.routes.ts
 import { Router } from 'express';
 import { PatientController } from '../controllers/patientController';
 import { Request, Response } from 'express';

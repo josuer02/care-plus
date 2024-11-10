@@ -1,3 +1,4 @@
+// src/controllers/appointmentController.ts
 import { Request, Response } from 'express';
 import { AppointmentRepository } from '../repositories/appointmentRepository';
 
@@ -41,7 +42,7 @@ export class AppointmentController {
             const { id } = req.params;
             const { datetime } = req.body;
 
-            const appointment = await this.appointmentRepo.update(Number(id), {
+            const appointment = await this.appointmentRepo.update(id, {
                 datetime: new Date(datetime)
             });
 
@@ -55,7 +56,7 @@ export class AppointmentController {
         try {
             const { id } = req.params;
 
-            const appointment = await this.appointmentRepo.update(Number(id), {
+            const appointment = await this.appointmentRepo.update((id), {
                 status: 'CANCELLED'
             });
 

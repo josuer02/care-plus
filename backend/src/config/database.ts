@@ -1,14 +1,17 @@
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
-
-// Add query logging for profiling
-prisma.$use(async (params: any, next: any) => {
-    const start = Date.now();
-    const result = await next(params);
-    const end = Date.now();
-    console.log(`Query ${params.model}.${params.action} took ${end - start}ms`);
-    return result;
+const prisma = new PrismaClient({
+    log: ['query', 'info', 'warn', 'error'], // Añade logging
 });
+
+// Verificar conexión
+prisma.$connect()
+    .then(() => {
+        console.log('Successfully connected to MongoDB');
+    })
+    .catch((error) => {
+        console.error('Failed to connect to MongoDB:', error);
+        process.exit(1);
+    });
 
 export default prisma;

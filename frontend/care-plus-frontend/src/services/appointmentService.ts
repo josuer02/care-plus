@@ -7,7 +7,7 @@ export const appointmentService = {
   async create(data: AppointmentFormData) {
     // First create or find patient
     const patientResponse = await api.get(`/patients/search?phone=${data.phone}`);
-    let patientId: number;
+    let patientId: string;
 
     if (patientResponse.status === 404) {
       // Create new patient
@@ -18,9 +18,9 @@ export const appointmentService = {
         phone: data.phone,
         dateOfBirth: data.dateOfBirth,
       });
-      patientId = newPatient.data.id;
+      patientId = newPatient.data._id;
     } else {
-      patientId = patientResponse.data.id;
+      patientId = patientResponse.data._id;
     }
 
     // Create appointment
@@ -50,14 +50,14 @@ export const appointmentService = {
     }
   },
 
-  async reschedule(id: number, datetime: Date) {
+  async reschedule(id: string, datetime: Date) {
     const response = await api.put(`/appointments/${id}/reschedule`, {
       datetime,
     });
     return response.data;
   },
 
-  async cancel(id: number) {
+  async cancel(id: string) {
     const response = await api.put(`/appointments/${id}/cancel`);
     return response.data;
   },

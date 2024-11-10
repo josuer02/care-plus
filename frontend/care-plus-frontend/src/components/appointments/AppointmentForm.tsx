@@ -46,7 +46,7 @@ const formSchema = z.object({
   dateOfBirth: z.date({
     required_error: "Date of birth is required",
   }),
-  doctorId: z.number({
+  doctorId: z.string({
     required_error: "Please select a doctor",
   }),
   appointmentDate: z.date({
@@ -129,7 +129,7 @@ export default function AppointmentForm() {
     }
   };
 
-  const loadAvailableSlots = async (doctorId: number, date: Date) => {
+  const loadAvailableSlots = async (doctorId: string, date: Date) => {
     try {
       const response = await doctorService.getAvailableSlots(doctorId, date);
       console.log("API Response:", response);
@@ -203,9 +203,9 @@ export default function AppointmentForm() {
   const handleDoctorSelect = (doctorId: string) => {
     const date = form.getValues("appointmentDate");
     if (date) {
-      loadAvailableSlots(parseInt(doctorId), date);
+      loadAvailableSlots(doctorId, date);
     }
-    form.setValue("doctorId", parseInt(doctorId));
+    form.setValue("doctorId", doctorId);
     form.setValue("appointmentTime", ""); // Clear time when doctor changes
   };
 
@@ -386,8 +386,8 @@ export default function AppointmentForm() {
                         <SelectContent>
                           {doctors.map((doctor) => (
                             <SelectItem
-                              key={doctor.id}
-                              value={doctor.id.toString()}
+                              key={doctor._id}
+                              value={doctor._id.toString()}
                             >
                               Dr. {doctor.firstName} {doctor.lastName}
                             </SelectItem>
