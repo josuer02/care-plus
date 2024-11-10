@@ -17,6 +17,9 @@ mongodb_data/
 mongodb_config/
 mongodb-keyfile
 
+.clinic/
+*.clinic-doctor*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
