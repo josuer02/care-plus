@@ -7,24 +7,24 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const routes = [
-  {
-    label: "Dashboard",
-    icon: Home,
-    href: "/",
-    color: "text-sky-500",
-  },
+  // {
+  //   label: "Dashboard",
+  //   icon: Home,
+  //   href: "/",
+  //   color: "text-sky-500",
+  // },
   {
     label: "Appointments",
     icon: Calendar,
     href: "/appointments",
     color: "text-violet-500",
   },
-  {
-    label: "Patients",
-    icon: Users,
-    href: "/patients",
-    color: "text-pink-700",
-  },
+  // {
+  //   label: "Patients",
+  //   icon: Users,
+  //   href: "/patients",
+  //   color: "text-pink-700",
+  // },
 ];
 
 export default function Sidebar() {
