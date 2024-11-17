@@ -4,7 +4,7 @@ En esta branch se encuentra actualmente el proyecto llevado a cabo en SQL sin in
 
 Para visualizar SQL con índices se puede dirigir al commit de esta branch titulado `Update README` con SHA `b708e16984dce34c1386944e4d3793ce4c69fe2c`
 
-Para visualizar el proyecot migrado a MongoDB (NosSQL) dirijase a la branch titulada `nosql-migration`. Sin embargo, la evaluación y discusión de resultados del proyecto en general los encnontrará en esta branch.
+Para visualizar el proyecot migrado a MongoDB (NosSQL) dirijase a la branch titulada `nosql-migration`. Sin embargo, la bitácora, evaluación y discusión de resultados del proyecto en general los encnontrará en esta branch.
 
 En la branch `nosql-migration` el codigo fue reutilizado y no hubo cambios singificativos, más que en `src\models\prisma\schema.prisma` y el archivo `docker-compose.yml`. Ambos dentro de la carpeta backend.
 
@@ -57,6 +57,7 @@ http://localhost:3002/api/doctors
 ```
 
 ## Testing
+### LOS ARCHIVOS EJECUTADOS EN TODAS LAS FASES DEL PROYECTO PARA LOAD Y PROFILING SON LOS MISMSOS.
 ### Load Testing
 Los archivos ejecuados para realizar el load testing se encuentran dentro de la carpeta backend en `\scripts`.
 
