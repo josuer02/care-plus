@@ -16,6 +16,8 @@ Load testing - https://docs.google.com/spreadsheets/d/1gMiQwqffgLYEuXyWnOrkMtU7V
 
 Presentación - https://www.canva.com/design/DAGWrr1Rq8Y/PVzu4NgdLVHYJvYzMpTORA/edit?utm_content=DAGWrr1Rq8Y&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
+Bitacroa (también la puedes encontrar en el repositorio) - https://docs.google.com/document/d/1jLJkXjLvEbsDaYTUqvG5MCQUBzpc5MmRBsHHOUfCGYQ/edit?usp=sharing
+
 ## Detalles del proyecto
 
 ### Índices
